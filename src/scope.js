@@ -1,54 +1,56 @@
-// ES5 中作用域
-const callbacks = []
-for (var i = 0; i <= 2; i++) {
-    callbacks[i] = function() {
-        return i * 2
-    }
+// ES5中作用域
+var callBacks = []
+for(var i=0;i<=2;i++){
+  callBacks[i] = function(){  //闭包 引用
+    return i * 2
+  }
 }
 
 console.table([
-    callbacks[0](),
-    callbacks[1](),
-    callbacks[2](),
+  callBacks[0](),
+  callBacks[1](),
+  callBacks[2]()
 ])
 
-const callbacks2 = []
-for (let j = 0; j <= 2; j++) {
-    callbacks2[j] = function() {
-        return j * 2
-    }
+//ES6 
+
+const callBacks2 = []
+for(let i=0;i<=2;i++){  //let 块级作用域
+  callBacks2[i] = function(){  //闭包 引用
+    return i * 2
+  }
 }
 
 console.table([
-    callbacks2[0](),
-    callbacks2[1](),
-    callbacks2[2](),
-])
-;((function() {
-    const foo = function() {
-        return 1
-    }
-    console.log("foo()===1", foo() === 1)
-    ;((function() {
-        const foo = function() {
-            return 2
-        }
-        console.log("foo()===2", foo() === 2)
-    })())
-})())
+  callBacks2[0](),
+  callBacks2[1](),
+  callBacks2[2](),
+]);
 
+//ES5 立即执行函数 作用域
+(function(){
+  var foo = function(){
+    return 1
+  }
+  console.log('foo()===1', foo()===1);
+  (function(){
+    var foo = function(){
+      return 2
+    }
+    console.log('foo()===2',foo()===2);
+  })()
+})()
+
+//ES6 块级作用域
 {
-    function foo() {
-        return 1
+  var foo = function(){
+    return 1
+  }
+  console.log('foo()===1', foo()===1);
+  {
+    var foo = function(){
+      return 2
     }
-
-    console.log("foo()===1", foo() === 1)
-    {
-        function foo() {
-            return 2
-        }
-
-        console.log("foo()===2", foo() === 2)
-    }
-    console.log("foo()===1", foo() === 1)
+    console.log('foo()===2',foo()===2);
+  }
 }
